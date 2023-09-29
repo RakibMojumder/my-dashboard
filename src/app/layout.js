@@ -1,5 +1,8 @@
+import Header from '@/components/Header/Header'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import Sidebar from '@/components/Sidebar/Sidebar'
+import Provider from '@/context/Provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,7 +14,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Provider>
+          <main className='flex h-screen overflow-hidden'>
+            <div className='hidden sm:block sm:w-1/3 md:w-1/4 lg:w-1/5 overflow-y-auto bg-secondary h-screen'><Sidebar /></div>
+            <div className='flex-1 h-screen overflow-y-auto bg-primary'>
+              <div className='sticky top-0 z-[999]'><Header /></div>
+              <div className='min-h-screen p-8'>{children}</div>
+            </div>
+          </main>
+        </Provider>
+      </body>
     </html>
   )
 }
